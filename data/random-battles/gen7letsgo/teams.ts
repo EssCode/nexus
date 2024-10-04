@@ -85,7 +85,7 @@ export class RandomLetsGoTeams extends RandomGen8Teams {
 		case 'dragonpulse':
 			return {cull: moves.has('dragontail') || moves.has('outrage')};
 		case 'thunderbolt':
-			return {cull: moves.has('thunder')};
+			return {cull: moves.has('thunder') || moves.has('thunderpunch')};
 		case 'flareblitz': case 'flamethrower':
 			return {cull: moves.has('fireblast') || moves.has('firepunch')};
 		case 'megadrain':
@@ -93,13 +93,11 @@ export class RandomLetsGoTeams extends RandomGen8Teams {
 		case 'bonemerang':
 			return {cull: moves.has('earthquake')};
 		case 'icebeam':
-			return {cull: moves.has('blizzard')};
-		case 'rockslide':
-			return {cull: moves.has('stoneedge')};
+			return {cull: moves.has('blizzard') || moves.has('icepunch')};
 		case 'hydropump': case 'willowisp':
 			return {cull: moves.has('scald')};
-		case 'surf':
-			return {cull: moves.has('hydropump') || moves.has('scald')};
+		case 'scald':
+			return {cull: moves.has('hydropump') || moves.has('surf') || moves.has('waterfall')};
 		}
 
 		// Increased/decreased priority moves are unneeded with moves that boost only speed
@@ -200,12 +198,14 @@ export class RandomLetsGoTeams extends RandomGen8Teams {
 		const ivs = {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31};
 		// Minimize confusion damage
 		if (!counter.get('Physical') && !moves.has('transform')) ivs.atk = 0;
+		
+		const level = data.level || 100;
 
 		const requiredItem = species.requiredItem || (species.requiredItems ? this.sample(species.requiredItems) : null);
 		return {
 			name: species.baseSpecies,
 			species: forme,
-			level: this.adjustLevel || 100,
+			level, 
 			gender: species.gender,
 			happiness: 70,
 			shiny: this.randomChance(1, 1024),
