@@ -198,14 +198,14 @@ export class RandomLetsGoTeams extends RandomGen8Teams {
 		const ivs = {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31};
 		// Minimize confusion damage
 		if (!counter.get('Physical') && !moves.has('transform')) ivs.atk = 0;
-		
+
 		const level = data.level || 100;
 
 		const requiredItem = species.requiredItem || (species.requiredItems ? this.sample(species.requiredItems) : null);
 		return {
 			name: species.baseSpecies,
 			species: forme,
-			level, 
+			level,
 			gender: species.gender,
 			happiness: 70,
 			shiny: this.randomChance(1, 1024),
